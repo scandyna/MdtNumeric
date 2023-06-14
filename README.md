@@ -1,6 +1,13 @@
 # MdtNumeric
 
+Set of helpers for basic numeric operations.
 
+For more complete set of such libraries, consider known ones, like:
+- [Boost.NumericConversion](https://www.boost.org/doc/libs/1_82_0/libs/numeric/conversion/doc/html/index.html)
+- [Safe Numerics](https://www.boost.org/doc/libs/1_82_0/libs/safe_numerics/doc/html/index.html)
+- [Blaze](https://bitbucket.org/blaze-lib/blaze/src/master/)
+- [Blaze GitHub mirror](https://github.com/parsa/blaze)
+- Others I don't know
 
 ## Getting started
 
