@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: LGPL-3.0-or-later
+/****************************************************************************************
+ **
+ ** MdtNumeric
+ ** Set of helpers for basic numeric operations.
+ **
+ ** Copyright (C) 2023-2024 Philippe Steinmann.
+ **
+ *****************************************************************************************/
+
+/*! \mainpage Numeric library
+ *
+ * \sa Mdt::Numeric
+ */
