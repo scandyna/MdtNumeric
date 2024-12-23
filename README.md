@@ -9,6 +9,42 @@ For more complete set of such libraries, consider known ones, like:
 - [Blaze GitHub mirror](https://github.com/parsa/blaze)
 - Others I don't know
 
+# Usage
+
+For the usage of classes and functions,
+see [the API documentation](https://scandyna.gitlab.io/mdtnumeric)
+
+## CMake project description
+
+Update your CMakeLists.txt to use the required libraries:
+```cmake
+cmake_minimum_required(VERSION 3.15)
+project(MyApp)
+
+find_package(Mdt0 REQUIRED COMPONENTS Numeric)
+
+add_executable(myApp myApp.cpp)
+target_link_libraries(myApp Mdt0::Numeric)
+```
+
+## Project using Conan
+
+If you use [Conan](https://conan.io/),
+add MdtNumeric as requirement in your `conanfile.txt`:
+```conan
+[requires]
+mdtnumeric/x.y.z@scandyna/testing
+
+[generators]
+CMakeDeps
+CMakeToolchain
+VirtualBuildEnv
+```
+
+----------------
+
+# stuff from the generated template
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
