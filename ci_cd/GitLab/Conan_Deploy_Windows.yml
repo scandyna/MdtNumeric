@@ -1,0 +1,22 @@
+
+include:
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Windows_gcc8_x86_64@0.0.15
+    inputs:
+      components:
+        - 'mdtnumeric'
+      build_types:
+        - 'Debug'
+        - 'Release'
+      shared_libs:
+        - 'True'
+        - 'False'
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Windows_msvc16_x86_64@0.0.15
+    inputs:
+      components:
+        - 'mdtnumeric'
+      build_types:
+        - 'Debug'
+        - 'Release'
+      shared_libs:
+        - 'True'
+        - 'False'
