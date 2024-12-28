@@ -12,3 +12,12 @@
  *
  * \sa Mdt::Numeric
  */
+
+namespace Mdt{
+
+  /*! \brief Mdt::Numeric namespace
+   */
+  namespace Numeric {
+  }
+
+}
