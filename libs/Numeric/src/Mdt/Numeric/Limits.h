@@ -4,7 +4,7 @@
  ** MdtNumeric
  ** Set of helpers for basic numeric operations.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2025 Philippe Steinmann.
  **
  *****************************************************************************************/
 #ifndef MDT_NUMERIC_LIMITS_H
@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <cstddef>
 #include <limits>
+#include <type_traits>
 
 namespace Mdt{ namespace Numeric{
 
@@ -26,12 +27,21 @@ namespace Mdt{ namespace Numeric{
   }
 
   /*! \brief Check if an int can represent given value of type T
+   *
+   * \pre \a value must be an integral type
    */
   template<typename T>
   constexpr
   bool int_canHoldValueOf_T(T value) noexcept
   {
-    return ( value >= std::numeric_limits<int>::min() ) && ( value <= std::numeric_limits<int>::max() );
+    static_assert(std::is_integral_v<T>, "Mdt::Numeric::int_canHoldValueOf_T(T value): given value must be an integral type");
+
+    if constexpr(std::is_unsigned_v<T>){
+      // value can't be < 0
+      return value <= std::numeric_limits<int>::max();
+    }else{
+      return ( value >= std::numeric_limits<int>::min() ) && ( value <= std::numeric_limits<int>::max() );
+    }
   }
 
 }} // namespace Mdt{ namespace Numeric{

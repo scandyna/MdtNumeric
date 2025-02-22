@@ -4,7 +4,7 @@
  ** MdtNumeric
  ** Set of helpers for basic numeric operations.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2025 Philippe Steinmann.
  **
  *****************************************************************************************/
 #ifndef MDT_NUMERIC_BASIC_CONVERSION_H
@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <cstddef>
 #include <cassert>
+#include <type_traits>
 
 namespace Mdt{ namespace Numeric{
 
@@ -69,6 +70,7 @@ namespace Mdt{ namespace Numeric{
 
   /*! \brief Get an int from a given value of type T
    *
+   * \pre \a value must be an integral type
    * \pre An int must be able to hold given value
    * \sa int_canHoldValueOf_T()
    */
@@ -76,6 +78,7 @@ namespace Mdt{ namespace Numeric{
   constexpr
   int int_from_T(T value) noexcept
   {
+    static_assert(std::is_integral_v<T>, "Mdt::Numeric::int_from_T(T value): given value must be an integral type");
     assert( int_canHoldValueOf_T(value) );
 
     return static_cast<int>(value);

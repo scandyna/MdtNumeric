@@ -4,7 +4,7 @@
  ** MdtNumeric
  ** Set of helpers for basic numeric operations.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2025 Philippe Steinmann.
  **
  *****************************************************************************************/
 #include "catch2/catch.hpp"
@@ -64,7 +64,7 @@ TEST_CASE("int_canHoldValueOf_T_longLongInt")
     REQUIRE( int_canHoldValueOf_T(value) );
   }
 
-  SECTION("int max - 1")
+  SECTION("int min - 1")
   {
     constexpr long long int value = std::numeric_limits<int>::min() - static_cast<long long int>(1);
 
@@ -81,6 +81,37 @@ TEST_CASE("int_canHoldValueOf_T_longLongInt")
   SECTION("int max + 1")
   {
     constexpr long long int value = std::numeric_limits<int>::max() + static_cast<long long int>(1);
+
+    REQUIRE( !int_canHoldValueOf_T(value) );
+  }
+}
+
+TEST_CASE("int_canHoldValueOf_T_size_t")
+{
+  SECTION("0")
+  {
+    std::size_t value = 0;
+
+    REQUIRE( int_canHoldValueOf_T(value) );
+  }
+
+  SECTION("1")
+  {
+    std::size_t value = 1;
+
+    REQUIRE( int_canHoldValueOf_T(value) );
+  }
+
+  SECTION("int max")
+  {
+    std::size_t intMax = std::numeric_limits<int>::max();
+
+    REQUIRE( int_canHoldValueOf_T(intMax) );
+  }
+
+  SECTION("int max + 1")
+  {
+    std::size_t value = std::numeric_limits<int>::max() + static_cast<std::size_t>(1);
 
     REQUIRE( !int_canHoldValueOf_T(value) );
   }

@@ -4,7 +4,7 @@
  ** MdtNumeric
  ** Set of helpers for basic numeric operations.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2025 Philippe Steinmann.
  **
  *****************************************************************************************/
 #include "catch2/catch.hpp"
@@ -102,5 +102,30 @@ TEST_CASE("int_from_T_longLongInt")
     constexpr long long value = std::numeric_limits<int>::max();
 
     REQUIRE( int_from_T(value) == value );
+  }
+}
+
+TEST_CASE("int_from_T_size_t")
+{
+  SECTION("0")
+  {
+    std::size_t value = 0;
+
+    REQUIRE( int_from_T(value) == 0 );
+  }
+
+  SECTION("1")
+  {
+    std::size_t value = 1;
+
+    REQUIRE( int_from_T(value) == 1 );
+  }
+
+  SECTION("int max value")
+  {
+    std::size_t sMax = std::numeric_limits<int>::max();
+    int intMax = std::numeric_limits<int>::max();
+
+    REQUIRE( int_from_T(sMax) == intMax );
   }
 }
