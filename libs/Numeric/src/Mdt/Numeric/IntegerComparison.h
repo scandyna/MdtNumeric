@@ -30,8 +30,13 @@ namespace Mdt{ namespace Numeric{
     static_assert(!std::is_same_v<U, bool>, "Mdt::Numeric::cmp_less(): given value u must be an integral type (not bool)");
     static_assert(!std::is_same_v<U, char>, "Mdt::Numeric::cmp_less(): given value u must be an integral type (not char)");
 
-    
-    return false;
+    if constexpr(std::is_signed_v<T> == std::is_signed_v<U>){
+      return t < u;
+    }else if constexpr(std::is_signed_v<T>){
+      return t < 0 || std::make_unsigned_t<T>(t) < u;
+    }else{
+      return u >= 0 && t < std::make_unsigned_t<U>(u);
+    }
   }
 
 }} // namespace Mdt{ namespace Numeric{

@@ -11,6 +11,7 @@
 #include "Mdt/Numeric/IntegerComparison.h"
 #include <limits>
 #include <cstdint>
+#include <cstddef>
 
 using namespace Mdt::Numeric;
 
@@ -45,8 +46,32 @@ struct int_uint8
   uint8_t u;
 };
 
+struct int_size_t
+{
+  int t;
+  std::size_t u;
+};
 
-TEMPLATE_TEST_CASE("cmp_less_PositiveIntegers_WorkingWithAllTypes", "", int_int, int8_int, int_int8, uint8_int, int_uint8)
+struct size_t_int
+{
+  std::size_t t;
+  int u;
+};
+
+struct int_int64
+{
+  int t;
+  int64_t u;
+};
+
+struct int64_int
+{
+  int64_t t;
+  int u;
+};
+
+
+TEMPLATE_TEST_CASE("cmp_less_PositiveIntegers_WorkingWithAllTypes", "", int_int, int8_int, int_int8, uint8_int, int_uint8, int_size_t, size_t_int, int_int64, int64_int)
 {
   TestType v;
 
@@ -69,7 +94,7 @@ TEMPLATE_TEST_CASE("cmp_less_PositiveIntegers_WorkingWithAllTypes", "", int_int,
   }
 }
 
-TEMPLATE_TEST_CASE("cmp_less_Integers_WorkingWithAllSignedTypes", "", int_int, int8_int, int_int8)
+TEMPLATE_TEST_CASE("cmp_less_Integers_WorkingWithAllSignedTypes", "", int_int, int8_int, int_int8, int_int64, int64_int)
 {
   TestType v;
 
@@ -221,27 +246,96 @@ TEST_CASE("cmp_less_int_uint8_limits")
   }
 }
 
-TEST_CASE("cmp_less_int_int8")
+TEST_CASE("cmp_less_int_size_t_limits")
 {
-  REQUIRE(false);
-}
+  SECTION("int min is < 0")
+  {
+    const int t = std::numeric_limits<int>::min();
+    const std::size_t u = 0;
 
-TEST_CASE("cmp_less_int_uint8")
-{
-  REQUIRE(false);
-}
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
 
-TEST_CASE("cmp_less_int_int")
-{
-  REQUIRE(false);
+  SECTION("int min is < 1")
+  {
+    const int t = std::numeric_limits<int>::min();
+    const std::size_t u = 1;
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
+
+  // TODO Maybe not correct on all platforms
+  SECTION("int min is < size_t max")
+  {
+    const int t = std::numeric_limits<int>::min();
+    const std::size_t u = std::numeric_limits<std::size_t>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
 }
 
 TEST_CASE("cmp_less_size_t_int")
 {
-  REQUIRE(false);
+  SECTION("0 is < int max")
+  {
+    const std::size_t t = 0;
+    const int u = std::numeric_limits<int>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
+
+  SECTION("1 is < int max")
+  {
+    const std::size_t t = 1;
+    const int u = std::numeric_limits<int>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
 }
 
-TEST_CASE("cmp_less_int_size_t")
+TEST_CASE("cmp_less_int_int64_limits")
 {
-  REQUIRE(false);
+  SECTION("0 is < int64 max")
+  {
+    const int t = 0;
+    const int64_t u = std::numeric_limits<int64_t>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
+
+  SECTION("1 is < int64 max")
+  {
+    const int t = 1;
+    const int64_t u = std::numeric_limits<int64_t>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
+
+  SECTION("int min is < int64 max")
+  {
+    const int t = std::numeric_limits<int>::min();
+    const int64_t u = std::numeric_limits<int64_t>::max();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
+}
+
+TEST_CASE("cmp_less_int64_int_limits")
+{
+  SECTION("int64 min is < int min")
+  {
+    const int64_t t = std::numeric_limits<int64_t>::min();
+    const int u = std::numeric_limits<int>::min();
+
+    CHECK( cmp_less(t, u) );
+    CHECK( !cmp_less(u, t) );
+  }
 }
