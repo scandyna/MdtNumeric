@@ -7,6 +7,7 @@ include(MdtInstallLibrary)
 
 add_library(Mdt_Numeric
   Mdt/Numeric/Limits.cpp
+  Mdt/Numeric/IntegerComparison.cpp
   Mdt/Numeric/BasicConversion.cpp
 )
 add_library(Mdt::Numeric ALIAS Mdt_Numeric)

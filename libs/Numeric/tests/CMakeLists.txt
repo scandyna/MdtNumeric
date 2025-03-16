@@ -13,6 +13,14 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME IntegerComparisonTest
+  TARGET integerComparisonTest
+  DEPENDENCIES Mdt::Numeric Mdt::Catch2Main
+  SOURCE_FILES
+    src/IntegerComparisonTest.cpp
+)
+
+mdt_add_test(
   NAME BasicConversionTest
   TARGET basicConversionTest
   DEPENDENCIES Mdt::Numeric Mdt::Catch2Main
