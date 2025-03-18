@@ -44,6 +44,27 @@ namespace Mdt{ namespace Numeric{
     }
   }
 
+  /// \todo T_canHoldValueOf_int
+
+  /*! \brief Check if integers \a a and \a b can be added
+   *
+   * Returns true if \a a and \a b can be added without an overflow
+   *
+   * \sa https://github.com/cplusplus/papers/issues/393
+   */
+  inline
+  constexpr
+  bool canAdd(int a, int b) noexcept
+  {
+    if( (b > 0) && (a > std::numeric_limits<int>::max() - b) ){
+      return false;
+    }
+    if( (b < 0) && (a < std::numeric_limits<int>::min() - b) ){
+      return false;
+    }
+    return true;
+  }
+
 }} // namespace Mdt{ namespace Numeric{
 
 #endif // #ifndef MDT_NUMERIC_LIMITS_H

@@ -116,3 +116,47 @@ TEST_CASE("int_canHoldValueOf_T_size_t")
     REQUIRE( !int_canHoldValueOf_T(value) );
   }
 }
+
+int addIfPossible(int a, int b)
+{
+  if( canAdd(a, b) ){
+    return a + b;
+  }
+  return 0;
+}
+
+TEST_CASE("canAdd_int_int")
+{
+  const int intMax = std::numeric_limits<int>::max();
+  const int intJustBelowHalfMax = intMax / 2;
+  const int intMin = std::numeric_limits<int>::min();
+
+  SECTION("only check if we can add")
+  {
+    CHECK( canAdd(0, 0) );
+    CHECK( canAdd(1, 0) );
+    CHECK( canAdd(0, 1) );
+    CHECK( canAdd(-1, 1) );
+    CHECK( canAdd(1, -1) );
+    CHECK( canAdd(intMax, 0) );
+    CHECK( !canAdd(intMax, 1) );
+    CHECK( canAdd(intMin, 1) );
+    CHECK( !canAdd(intMin, -1) );
+    CHECK( canAdd(0, intMax) );
+    CHECK( !canAdd(1, intMax) );
+    CHECK( canAdd(1, intMin) );
+    CHECK( !canAdd(-1, intMin) );
+  }
+
+  // Mistakes should be catched by UBSan
+  SECTION("check and add if possible")
+  {
+    CHECK( addIfPossible(intMax, 0) == intMax );
+    CHECK( addIfPossible(intMax, 1) == 0 );
+    CHECK( addIfPossible(intMin, -1) == 0 );
+    CHECK( addIfPossible(intJustBelowHalfMax, intJustBelowHalfMax) == (intMax - 1) );
+    CHECK( addIfPossible(0, intMax) == intMax );
+    CHECK( addIfPossible(1, intMax) == 0 );
+    CHECK( addIfPossible(-1, intMin) == 0 );
+  }
+}
