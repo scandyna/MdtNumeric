@@ -84,6 +84,22 @@ namespace Mdt{ namespace Numeric{
     return static_cast<int>(value);
   }
 
+  /*! \brief Get given int value as T integer
+   *
+   * \pre \a T must be an integral type
+   * \pre \a T must be able to hold given value
+   * \sa T_canHoldValueOf_int()
+   */
+  template<typename T>
+  constexpr
+  T T_from_int(int value) noexcept
+  {
+    static_assert(std::is_integral_v<T>, "Mdt::Numeric::T_from_int(): T must be an integral type");
+    assert( T_canHoldValueOf_int<T>(value) );
+
+    return static_cast<T>(value);
+  }
+
 }} // namespace Mdt{ namespace Numeric{
 
 #endif // #ifndef MDT_NUMERIC_BASIC_CONVERSION_H

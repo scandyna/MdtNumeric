@@ -129,3 +129,28 @@ TEST_CASE("int_from_T_size_t")
     REQUIRE( int_from_T(sMax) == intMax );
   }
 }
+
+TEST_CASE("T_from_int_size_t")
+{
+  SECTION("0")
+  {
+    int value = 0;
+
+    REQUIRE( T_from_int<std::size_t>(value) == 0 );
+  }
+
+  SECTION("1")
+  {
+    int value = 1;
+
+    REQUIRE( T_from_int<std::size_t>(value) == 1 );
+  }
+
+  SECTION("int max value")
+  {
+    int intMax = std::numeric_limits<int>::max();
+    std::size_t sMax = std::numeric_limits<int>::max();
+
+    REQUIRE( T_from_int<std::size_t>(intMax) == sMax );
+  }
+}
