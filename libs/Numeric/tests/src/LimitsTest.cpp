@@ -10,6 +10,8 @@
 #include "catch2/catch.hpp"
 #include "Mdt/Numeric/Limits.h"
 #include <limits>
+#include <cstdint>
+#include <cstddef>
 
 using namespace Mdt::Numeric;
 
@@ -116,6 +118,194 @@ TEST_CASE("int_canHoldValueOf_T_size_t")
     REQUIRE( !int_canHoldValueOf_T(value) );
   }
 }
+
+TEST_CASE("T_canHoldValueOf_int_int8")
+{
+  SECTION("0")
+  {
+    const int value = 0;
+
+    CHECK( T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("1")
+  {
+    const int value = 1;
+
+    CHECK( T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int8 max")
+  {
+    const int value = std::numeric_limits<int8_t>::max();
+
+    CHECK( T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int8 max + 1")
+  {
+    const int value = std::numeric_limits<int8_t>::max() + 1;
+
+    CHECK( !T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int max")
+  {
+    const int value = std::numeric_limits<int>::max();
+
+    CHECK( !T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("-1")
+  {
+    const int value = -1;
+
+    CHECK( T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int8 min")
+  {
+    const int value = std::numeric_limits<int8_t>::min();
+
+    CHECK( T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int8 min - 1")
+  {
+    const int value = std::numeric_limits<int8_t>::min() - 1;
+
+    CHECK( !T_canHoldValueOf_int<int8_t>(value) );
+  }
+
+  SECTION("int min")
+  {
+    const int value = std::numeric_limits<int>::min();
+
+    CHECK( !T_canHoldValueOf_int<int8_t>(value) );
+  }
+}
+
+TEST_CASE("T_canHoldValueOf_int_uint8")
+{
+  SECTION("0")
+  {
+    const int value = 0;
+
+    CHECK( T_canHoldValueOf_int<uint8_t>(value) );
+  }
+
+  SECTION("1")
+  {
+    const int value = 1;
+
+    CHECK( T_canHoldValueOf_int<uint8_t>(value) );
+  }
+
+  SECTION("uint8 max")
+  {
+    const int value = std::numeric_limits<uint8_t>::max();
+
+    CHECK( T_canHoldValueOf_int<uint8_t>(value) );
+  }
+
+  SECTION("uint8 max + 1")
+  {
+    const int value = std::numeric_limits<uint8_t>::max() + 1;
+
+    CHECK( !T_canHoldValueOf_int<uint8_t>(value) );
+  }
+
+  SECTION("int max")
+  {
+    const int value = std::numeric_limits<int>::max();
+
+    CHECK( !T_canHoldValueOf_int<uint8_t>(value) );
+  }
+
+  SECTION("-1")
+  {
+    const int value = -1;
+
+    CHECK( !T_canHoldValueOf_int<uint8_t>(value) );
+  }
+}
+
+TEST_CASE("T_canHoldValueOf_int_int")
+{
+  SECTION("0")
+  {
+    const int value = 0;
+
+    CHECK( T_canHoldValueOf_int<int>(value) );
+  }
+
+  SECTION("1")
+  {
+    const int value = 1;
+
+    CHECK( T_canHoldValueOf_int<int>(value) );
+  }
+
+  SECTION("int max")
+  {
+    const int value = std::numeric_limits<int>::max();
+
+    CHECK( T_canHoldValueOf_int<int>(value) );
+  }
+
+  SECTION("-1")
+  {
+    const int value = -1;
+
+    CHECK( T_canHoldValueOf_int<int>(value) );
+  }
+
+  SECTION("int min")
+  {
+    const int value = std::numeric_limits<int>::min();
+
+    CHECK( T_canHoldValueOf_int<int>(value) );
+  }
+}
+
+TEST_CASE("T_canHoldValueOf_int_size_t")
+{
+  SECTION("0")
+  {
+    const int value = 0;
+
+    CHECK( T_canHoldValueOf_int<std::size_t>(value) );
+  }
+
+  SECTION("1")
+  {
+    const int value = 1;
+
+    CHECK( T_canHoldValueOf_int<std::size_t>(value) );
+  }
+
+  SECTION("int max")
+  {
+    const int value = std::numeric_limits<int>::max();
+
+    CHECK( T_canHoldValueOf_int<std::size_t>(value) );
+  }
+
+  SECTION("-1")
+  {
+    const int value = -1;
+
+    CHECK( !T_canHoldValueOf_int<std::size_t>(value) );
+  }
+
+  SECTION("int min")
+  {
+    const int value = std::numeric_limits<int>::min();
+
+    CHECK( !T_canHoldValueOf_int<std::size_t>(value) );
+  }
+}
+
 
 int addIfPossible(int a, int b)
 {

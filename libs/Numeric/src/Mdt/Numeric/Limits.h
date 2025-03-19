@@ -44,7 +44,22 @@ namespace Mdt{ namespace Numeric{
     }
   }
 
-  /// \todo T_canHoldValueOf_int
+  /*! \brief Check if given int value can be represented for an integer of type T
+   *
+   * \pre \a T must be an integral type
+   */
+  template<typename T>
+  constexpr
+  bool T_canHoldValueOf_int(int value) noexcept
+  {
+    static_assert(std::is_integral_v<T>, "Mdt::Numeric::T_canHoldValueOf_int(T value): given value must be an integral type");
+
+    if constexpr(std::is_unsigned_v<T>){
+      return (value >= 0 ) && ( std::make_unsigned_t<int>(value) <= std::numeric_limits<T>::max() );
+    }else{
+      return ( value >= std::numeric_limits<T>::min() ) && ( value <= std::numeric_limits<T>::max() );
+    }
+  }
 
   /*! \brief Check if integers \a a and \a b can be added
    *
