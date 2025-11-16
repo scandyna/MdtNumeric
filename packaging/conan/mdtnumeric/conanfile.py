@@ -14,6 +14,7 @@ class MdtNumericConan(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   options = {"shared": [True, False]}
   default_options = {"shared": True}
+  package_type = "library"
   generators = "CMakeDeps", "VirtualBuildEnv"
 
   # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
@@ -24,10 +25,10 @@ class MdtNumericConan(ConanFile):
       self.version = "0.0.0"
 
   def requirements(self):
-    self.requires("mdtcmakeconfig/0.1.0@scandyna/testing")
+    self.requires("mdtcmakeconfig/0.2.3@scandyna/testing")
 
   def build_requirements(self):
-    self.test_requires("mdtcmakemodules/0.20.0@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.20.2@scandyna/testing")
 
   def export_sources(self):
     source_root = os.path.join(self.recipe_folder, "../../../")
