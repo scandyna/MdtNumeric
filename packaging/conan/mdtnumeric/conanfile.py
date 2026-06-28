@@ -28,7 +28,7 @@ class MdtNumericConan(ConanFile):
     self.requires("mdtcmakeconfig/0.2.3@scandyna/testing")
 
   def build_requirements(self):
-    self.test_requires("mdtcmakemodules/0.20.2@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.22.0@scandyna/testing")
 
   def export_sources(self):
     source_root = os.path.join(self.recipe_folder, "../../../")

@@ -19,7 +19,7 @@ class MdtNumericConan(ConanFile):
 
   def build_requirements(self):
     self.test_requires("catch2/2.13.10")
-    self.test_requires("mdtcmakemodules/0.20.2@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.22.0@scandyna/testing")
 
   def generate(self):
     tc = CMakeToolchain(self)
