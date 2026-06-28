@@ -1,6 +1,6 @@
 
 include:
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-24-04_gcc13_x86_64@0.0.21
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-24-04_gcc13_x86_64@0.3.1
     inputs:
       components:
         - 'mdtnumeric'
@@ -10,7 +10,7 @@ include:
       shared_libs:
         - 'True'
         - 'False'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-24-04_clang18_x86_64_libcxx@0.0.21
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-24-04_clang18_x86_64_libcxx@0.3.1
     inputs:
       components:
         - 'mdtnumeric'
